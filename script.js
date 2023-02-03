@@ -10,7 +10,7 @@ const cities_searched = []
 
 form.addEventListener("submit", (e) => {
     e.preventDefault()
-    const city_name = city.value
+    const city_name = city.value.trim()
     city.value = ''
     console.log(cities_searched)
     getWeather(city_name)
@@ -25,9 +25,9 @@ async function getWeather(city) {
             throw new Error(`## OOOPS! Could not fetch data! Error: ${response.status}`)
         }
         const data = await response.json()
-        // console.log(data)
+        console.log(data)
         for (const i in cities_searched) {
-            if (cities_searched[i] === city) {
+            if (cities_searched[i].toUpperCase() === city.toUpperCase()) {
                 info[0].classList.remove("invisible")
                 info[0].innerHTML = `Weather data for "${city}" is already on your list`
                 throw new Error("already searched")
@@ -47,10 +47,10 @@ async function getWeather(city) {
 
 function renderWeather(data) {
     const icon_src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
-    result_section.innerHTML += `<div class="bg-black card shadow-lg text-light" style="width: 18rem;">
+    result_section.innerHTML += `<div class="bg-primary card shadow-lg d-flex align-items-center justify-content-center text-light" style="width: 18rem; height: 26rem;">
     <div class="card-body d-flex flex-column justify-content-center align-items-center">
         <h2 class="card-title">${data.name}</h2>
-        <p class="card-text fs-2 mb-0 text-info">${Math.round(data.main.temp)} ºC</p>
+        <p class="card-text fs-2 mb-0 fw-bold">${Math.round(data.main.temp)} ºC</p>
         <img src=${icon_src}>
         <p class="card-text fs-5">${data.weather[0].main}</p>
         <p class="card-text">H: ${Math.round(data.main.temp_max)}º L: ${Math.round(data.main.temp_min)}º</p>
