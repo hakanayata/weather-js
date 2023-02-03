@@ -48,8 +48,8 @@ async function getWeather(city) {
 function renderWeather(data) {
     const icon_src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
     result_section.innerHTML += `<div class="bg-primary card shadow-lg d-flex align-items-center justify-content-center text-light" style="width: 18rem; height: 26rem;">
-    <div class="card-body d-flex flex-column justify-content-center align-items-center">
-        <h2 class="card-title">${data.name}</h2>
+    <div class="card-body d-flex flex-column justify-content-around align-items-center">
+        <h2 class="card-title d-flex align-items-center justify-content-center text-center" style="height: 100px;">${data.name}</h2>
         <p class="card-text fs-2 mb-0 fw-bold">${Math.round(data.main.temp)} ºC</p>
         <img src=${icon_src}>
         <p class="card-text fs-5">${data.weather[0].main}</p>
